@@ -13,8 +13,8 @@ const firebaseConfig = {
   appId: "1:859258571807:web:aaca78fc1777d29396992a"
 };
 
-const SUPABASE_URL = 'SUA_URL_DO_SUPABASE';
-const SUPABASE_KEY = 'SUA_CHAVE_PUBLICA_DO_SUPABASE';
+const SUPABASE_URL = 'https://wfdcretektjltvcjknzu.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndmZGNyZXRla3RqbHR2Y2prbnp1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIxODA3ODAsImV4cCI6MjA3Nzc1Njc4MH0.HHEiUsD-jJ1QsVHbYxRh1JAeEoAPGhk-BO0PD_V-Z_0';
 
 // Configurações do usuário
 const userSettings = {
