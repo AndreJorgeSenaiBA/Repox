@@ -2,7 +2,7 @@
 
 export default async function handler(req, res) {
   // Configurações
-  const GITHUB_USER = "AndrosoftStudio";
+  const GITHUB_USER = "AndreJorgeSenaiBA";
   const GITHUB_REPO = "dados";
   const GITHUB_PATH = "";  // Raiz do repositório
 
