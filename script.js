@@ -377,41 +377,105 @@ function createFeedItem(item) {
 }
 
 function getMediaContent(item) {
-  const ext = item.name.split('.').pop().toLowerCase();
+  const ext = item.extension || item.name.split('.').pop().toLowerCase();
   
+  // Vídeos
   if (['mp4', 'webm', 'mov', 'avi', 'mkv'].includes(ext)) {
     return createVideoPlayer(item);
   }
   
+  // Imagens
   if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp'].includes(ext)) {
     return `<div class="feed-item-media-container">
       <img src="${item.url}" alt="" class="feed-item-media">
     </div>`;
   }
   
-  if (['txt', 'md'].includes(ext)) {
+  // Documentos de texto
+  if (['txt', 'md', 'rtf'].includes(ext)) {
     return `<div class="document-viewer">
       <div class="text-viewer" data-url="${item.url}">Carregando...</div>
     </div>`;
   }
   
+  // PDF
   if (ext === 'pdf') {
     return createPDFViewer(item);
   }
   
-  if (['ppt', 'pptx'].includes(ext)) {
+  // Word
+  if (['doc', 'docx'].includes(ext)) {
+    return `<div class="document-viewer">
+      <div class="text-viewer" data-url="${item.url}">
+        <div style="text-align: center; padding: 40px;">
+          📄
+          <h3>Documento Word</h3>
+          <p style="color: var(--text-secondary);">Clique para baixar e visualizar</p>
+          <a href="${item.url}" download style="color: var(--primary); text-decoration: none;">📥 Baixar ${item.name}</a>
+        </div>
+      </div>
+    </div>`;
+  }
+  
+  // PowerPoint / Apresentações
+  if (['ppt', 'pptx', 'key', 'odp'].includes(ext)) {
     return createPPTViewer(item);
   }
   
-  if (['xls', 'xlsx', 'csv'].includes(ext)) {
+  // Excel / Planilhas
+  if (['xls', 'xlsx', 'csv', 'ods'].includes(ext)) {
     return createExcelViewer(item);
   }
   
-  if (['js', 'py', 'java', 'cpp', 'html', 'css', 'json', 'xml'].includes(ext)) {
+  // Código - linguagens web
+  if (['html', 'htm', 'css', 'scss', 'sass', 'less'].includes(ext)) {
     return createCodeViewer(item, ext);
   }
   
-  return '<div class="empty-state">Formato não suportado</div>';
+  // Código - JavaScript/TypeScript
+  if (['js', 'jsx', 'ts', 'tsx', 'json', 'xml'].includes(ext)) {
+    return createCodeViewer(item, ext);
+  }
+  
+  // Código - Backend
+  if (['py', 'java', 'cpp', 'c', 'cs', 'go', 'rs', 'php', 'rb'].includes(ext)) {
+    return createCodeViewer(item, ext);
+  }
+  
+  // Código - Mobile
+  if (['swift', 'kt', 'dart'].includes(ext)) {
+    return createCodeViewer(item, ext);
+  }
+  
+  // Código - Sistemas
+  if (['asm', 's', 'sh', 'bash', 'zsh', 'bat', 'ps1'].includes(ext)) {
+    return createCodeViewer(item, ext);
+  }
+  
+  // Código - Config e outros
+  if (['sql', 'r', 'lua', 'pl', 'scala', 'clj', 'ex', 'elm', 'vue', 'svelte', 'astro'].includes(ext)) {
+    return createCodeViewer(item, ext);
+  }
+  
+  if (['yaml', 'yml', 'toml', 'ini', 'makefile', 'dockerfile', 'gradle', 'cmake'].includes(ext)) {
+    return createCodeViewer(item, ext);
+  }
+  
+  // Arquivo especial sem extensão
+  const lowerName = item.name.toLowerCase();
+  if (lowerName.includes('makefile') || lowerName.includes('dockerfile') || lowerName.includes('readme')) {
+    return createCodeViewer(item, 'text');
+  }
+  
+  return `<div class="empty-state">
+    <div style="font-size: 48px; margin-bottom: 16px;">📄</div>
+    <div>Formato não suportado: .${ext}</div>
+    <div style="margin-top: 12px;">
+      <a href="${item.url}" download style="color: var(--primary); text-decoration: none;">
+        📥 Baixar arquivo
+      </a>
+    </div>
+  </div>`;
 }
 
 // ==================== REPRODUTOR DE VÍDEO ====================
